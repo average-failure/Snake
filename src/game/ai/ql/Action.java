@@ -1,4 +1,4 @@
-package game.ai.qLearning;
+package game.ai.ql;
 
 import game.helper.Direction;
 

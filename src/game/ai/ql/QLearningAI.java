@@ -1,4 +1,4 @@
-package game.ai.qLearning;
+package game.ai.ql;
 
 import game.helper.Direction;
 import game.helper.Point;
@@ -98,7 +98,7 @@ public class QLearningAI {
     boolean dead = !isRunning;
     for (int i = history.size() - 1; i > 0; i--) {
       if (dead) {
-        Action action = history.get(history.size() - 1).getAction();
+        Action action = history.get(history.size() - 1).action();
 
         byte reward = -10;
 
@@ -111,19 +111,19 @@ public class QLearningAI {
       } else {
         History current = history.get(i);
         History previous = history.get(i - 1);
-        Action previousAction = previous.getAction();
+        Action previousAction = previous.action();
 
-        int dSq1 = current.getDSq();
-        int dSq2 = previous.getDSq();
+        int dSq1 = current.dSq();
+        int dSq2 = previous.dSq();
 
-        boolean foodEaten = current.getScore() != previous.getScore();
+        boolean foodEaten = current.score() != previous.score();
         boolean foodCloser = dSq1 < dSq2;
 
         byte reward = -3;
 
         if (foodEaten) reward = 10; else if (foodCloser) reward = 1;
 
-        State currentState = current.getState();
+        State currentState = current.state();
 
         // Bellman equation
         previousAction.setWeight(
@@ -175,7 +175,7 @@ public class QLearningAI {
       ) return state;
     }
 
-    return null;
+    throw new IllegalStateException("Invalid state");
   }
 
   private boolean checkDirCollision(GamePanel game) {
@@ -215,13 +215,17 @@ public class QLearningAI {
       if (checkCollision(adjacents[i], game)) {
         switch (i) {
           case 0:
-            collision.left = true;
+            collision = collision.withLeft();
+            break;
           case 1:
-            collision.right = true;
+            collision = collision.withRight();
+            break;
           case 2:
-            collision.up = true;
+            collision = collision.withUp();
+            break;
           case 3:
-            collision.down = true;
+            collision = collision.withDown();
+            break;
           default:
             break;
         }

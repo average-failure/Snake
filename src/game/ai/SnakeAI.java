@@ -1,7 +1,7 @@
 package game.ai;
 
 import game.App;
-import game.ai.qLearning.QLearningAI;
+import game.ai.ql.QLearningAI;
 import game.circuit.HamiltonianCircuit;
 import game.frame.GameFrame;
 import game.frame.QDisplayFrame;
@@ -14,7 +14,7 @@ import javax.swing.Timer;
 
 public class SnakeAI implements ActionListener {
 
-  public static enum Mode {
+  public enum Mode {
     SIMPLE,
     HAMILTONIAN,
     Q_LEARNING,
@@ -40,11 +40,11 @@ public class SnakeAI implements ActionListener {
   private QLearningAI qLearningAI;
   private QDisplayFrame qDisplayFrame;
 
-  private final ActionEvent ACTION_EVENT = new ActionEvent(
+  private final ActionEvent actionEvent = new ActionEvent(
     this,
     ActionEvent.ACTION_PERFORMED,
     null
-  ) {};
+  );
 
   public SnakeAI(Mode mode) {
     this(mode, 5);
@@ -136,14 +136,14 @@ public class SnakeAI implements ActionListener {
     switch (mode) {
       case SIMPLE:
         simple();
-        game.actionPerformed(ACTION_EVENT);
+        game.actionPerformed(actionEvent);
         break;
       case HAMILTONIAN:
         hamiltonian();
         break;
       case Q_LEARNING:
         qLearningAI.act(game);
-        game.actionPerformed(ACTION_EVENT);
+        game.actionPerformed(actionEvent);
         break;
       default:
         break;

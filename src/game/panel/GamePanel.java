@@ -281,8 +281,8 @@ public class GamePanel extends JPanel implements ActionListener {
       }
     }
 
-    byte x = (byte) snake[0].getX();
-    byte y = (byte) snake[0].getY();
+    byte x = snake[0].getX();
+    byte y = snake[0].getY();
 
     if (x < 0 || x >= xCells || y < 0 || y >= yCells) stopGame(Result.LOST);
   }
@@ -309,21 +309,6 @@ public class GamePanel extends JPanel implements ActionListener {
   }
 
   private void draw(Graphics g) {
-    // if (circuit != null) {
-    //   g.setColor(Color.WHITE);
-    //   int halfCellSize = cellSize / 2;
-    //   for (int i = 0; i < circuit.length - 1; i++) {
-    //     Point currentCell = circuit[i];
-    //     Point nextCell = circuit[i + 1];
-    //     g.drawLine(
-    //       currentCell.getX() * cellSize + halfCellSize,
-    //       currentCell.getY() * cellSize + halfCellSize,
-    //       nextCell.getX() * cellSize + halfCellSize,
-    //       nextCell.getY() * cellSize + halfCellSize
-    //     );
-    //   }
-    // }
-
     g.setColor(Color.RED);
     g.fillOval(
       apple.getX() * cellSize,

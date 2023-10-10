@@ -1,7 +1,7 @@
 package game.frame;
 
 import game.ai.SnakeAI;
-import game.ai.qLearning.QLearningAI;
+import game.ai.ql.QLearningAI;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.KeyAdapter;
@@ -24,6 +24,8 @@ class AIFrame extends BaseFrame {
           new ModeFrame();
           dispose();
           break;
+        default:
+          break;
       }
     }
   }
@@ -44,7 +46,7 @@ class AIFrame extends BaseFrame {
     });
     qLearning.addActionListener(e -> {
       QLearningAI.initTable();
-      new SnakeAI(SnakeAI.Mode.Q_LEARNING, 2);
+      new SnakeAI(SnakeAI.Mode.Q_LEARNING, 1.1f);
       this.dispose();
     });
 
